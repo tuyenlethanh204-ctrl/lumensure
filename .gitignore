@@ -1,0 +1,32 @@
+# Dependencies and build outputs
+node_modules/
+web/dist/
+contracts/target/
+target/
+.crs-bn254/
+
+# Deployment/local cache
+.vercel/
+web/dist/.vercel/
+
+# Demo video and media production artifacts
+demo-video/
+*.mp4
+*.webm
+*.wav
+*.mp3
+
+# Agent / AI workflow handoff files
+AGENT_REPORT.md
+CODEX_REVIEW.md
+FIX_PROMPT.md
+
+# Local logs and bulky archives
+out.txt
+out2.txt
+*.tar.gz
+*.zip
+
+# Local screenshots and visual QA captures
+artifacts/*.png
+web/dist/*.png

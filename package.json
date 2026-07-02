@@ -1,0 +1,13 @@
+{
+  "name": "lumensure",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test oracle/*.test.mjs scripts/*.test.mjs",
+    "proof:fixture": "node scripts/claim_fixture.mjs",
+    "web:build": "node web/build.mjs"
+  },
+  "devDependencies": {
+    "circomlibjs": "^0.1.7"
+  }
+}
