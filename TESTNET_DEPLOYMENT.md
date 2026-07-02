@@ -72,6 +72,7 @@ Current status on 2026-07-02: **Stellar testnet verified for the current EdDSA/P
 
 - `npm run web:build` renders `web/dist/index.html` from live Stellar testnet reads.
 - The generated demo source data is `web/dist/onchain-snapshot.json`.
+- Demo video: <https://youtu.be/iAlpSBSk-BY>
 - On-chain reads include product `0`, policy `1`, oracle event, oracle public key, nullifier status, insurance contract token balance, and deployer token balance.
 - The public interface presents only LumenSure policy, proof, oracle, reserve, and on-chain settlement data.
 - Public Vercel deployment:

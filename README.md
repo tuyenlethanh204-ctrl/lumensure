@@ -2,7 +2,7 @@
 
 **Private, proof-backed parametric insurance on Stellar.**
 
-[Live testnet application](https://lumensure.vercel.app) · [Insurance contract](https://stellar.expert/explorer/testnet/contract/CBQ3WXWBRGDRUNYFMPYCFKSCL4KZOTAA3HDQHU7XVGEFWHXIHEQ3NQ53) · [Verified payout transaction](https://stellar.expert/explorer/testnet/tx/fec4fae1ee7c4a1c2a41db4dcf91614e521ef0b2c4a806bc154b811ccfd66ffa)
+[Live testnet application](https://lumensure.vercel.app) · [Demo video](https://youtu.be/iAlpSBSk-BY) · [Insurance contract](https://stellar.expert/explorer/testnet/contract/CBQ3WXWBRGDRUNYFMPYCFKSCL4KZOTAA3HDQHU7XVGEFWHXIHEQ3NQ53) · [Verified payout transaction](https://stellar.expert/explorer/testnet/tx/fec4fae1ee7c4a1c2a41db4dcf91614e521ef0b2c4a806bc154b811ccfd66ffa)
 
 ## Project overview
 
@@ -249,6 +249,7 @@ The current deployment is verified on the Stellar testnet.
 | Payout | `1000` |
 | Threshold | `180` |
 | Public application | [lumensure.vercel.app](https://lumensure.vercel.app) |
+| Demo video | [youtube.com/watch?v=iAlpSBSk-BY](https://youtu.be/iAlpSBSk-BY) |
 
 The verified claim transaction is:
 
