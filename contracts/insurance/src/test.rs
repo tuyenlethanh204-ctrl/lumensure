@@ -65,7 +65,8 @@ fn test_claim_success_payout() {
     let oracle_public_key_x = BytesN::from_array(&env, raw_public_inputs[128..160].try_into().unwrap());
     let oracle_public_key_y = BytesN::from_array(&env, raw_public_inputs[160..192].try_into().unwrap());
 
-    // Verify packing logic matches fixture
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
     let expected_packed = InsurancePool::pack_public_inputs(
         &env,
         oracle_commitment.clone(),
@@ -74,6 +75,8 @@ fn test_claim_success_payout() {
         nullifier.clone(),
         oracle_public_key_x.clone(),
         oracle_public_key_y.clone(),
+        payout_recipient.clone(),
+        verifier_domain.clone(),
     );
     
     assert_eq!(expected_packed.to_alloc_vec(), raw_public_inputs.to_vec());
@@ -84,7 +87,7 @@ fn test_claim_success_payout() {
     client.publish_event(&policy_id, &oracle_commitment);
 
     // Holder claims using the real proof
-    client.claim(&policy_id, &proof, &nullifier);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
 
     assert_eq!(token.balance(&client.address), 100_020 - 1000); // 100k + two premiums - payout
     assert_eq!(token.balance(&holder), 99_980 + 1000); // 100k - two premiums + payout
@@ -110,8 +113,10 @@ fn test_mutated_proof_rejected() {
     let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
     let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
 
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
     client.publish_event(&policy_id, &oracle_commitment);
-    client.claim(&policy_id, &proof, &nullifier);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
 }
 
 #[test]
@@ -129,9 +134,131 @@ fn test_mutated_public_inputs_rejected() {
     let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
     let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
 
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
     client.publish_event(&policy_id, &oracle_commitment);
     // This constructs public inputs with threshold=181 and passes them to the verifier, which should fail.
-    client.claim(&policy_id, &proof, &nullifier);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #10)")]
+fn test_wrong_policy_id_rejected() {
+    let env = Env::default();
+    let (client, _token, _admin, holder, _oracle, _nullifier) = setup(&env);
+    let product_id = client.create_product(&10, &1000, &180);
+    let policy_id = client.buy_policy(&holder, &product_id, &3600);
+
+    let proof = Bytes::from_slice(&env, include_bytes!("../../../artifacts/proof_blob.bin"));
+    let raw_public_inputs = include_bytes!("../../../artifacts/public_inputs.bin");
+    let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
+    let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
+
+    client.publish_event(&policy_id, &oracle_commitment);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #10)")]
+fn test_wrong_event_commitment_rejected() {
+    let env = Env::default();
+    let (client, _token, _admin, holder, _oracle, _nullifier) = setup(&env);
+    let product_id = client.create_product(&10, &1000, &180);
+    let _dummy = client.buy_policy(&holder, &product_id, &3600);
+    let policy_id = client.buy_policy(&holder, &product_id, &3600);
+
+    let proof = Bytes::from_slice(&env, include_bytes!("../../../artifacts/proof_blob.bin"));
+    let raw_public_inputs = include_bytes!("../../../artifacts/public_inputs.bin");
+    let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
+    let wrong_commitment = BytesN::from_array(&env, &[9; 32]);
+
+    client.publish_event(&policy_id, &wrong_commitment);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #10)")]
+fn test_wrong_nullifier_rejected() {
+    let env = Env::default();
+    let (client, _token, _admin, holder, _oracle, _nullifier) = setup(&env);
+    let product_id = client.create_product(&10, &1000, &180);
+    let _dummy = client.buy_policy(&holder, &product_id, &3600);
+    let policy_id = client.buy_policy(&holder, &product_id, &3600);
+
+    let proof = Bytes::from_slice(&env, include_bytes!("../../../artifacts/proof_blob.bin"));
+    let raw_public_inputs = include_bytes!("../../../artifacts/public_inputs.bin");
+    let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
+    let wrong_nullifier = BytesN::from_array(&env, &[9; 32]);
+
+    client.publish_event(&policy_id, &oracle_commitment);
+    client.claim(&policy_id, &proof, &wrong_nullifier, &payout_recipient, &verifier_domain);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #10)")]
+fn test_wrong_payout_recipient_rejected() {
+    let env = Env::default();
+    let (client, _token, _admin, holder, _oracle, _nullifier) = setup(&env);
+    let product_id = client.create_product(&10, &1000, &180);
+    let _dummy = client.buy_policy(&holder, &product_id, &3600);
+    let policy_id = client.buy_policy(&holder, &product_id, &3600);
+
+    let proof = Bytes::from_slice(&env, include_bytes!("../../../artifacts/proof_blob.bin"));
+    let raw_public_inputs = include_bytes!("../../../artifacts/public_inputs.bin");
+    let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
+    let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
+    let wrong_recipient = BytesN::from_array(&env, &[9; 32]);
+
+    client.publish_event(&policy_id, &oracle_commitment);
+    client.claim(&policy_id, &proof, &nullifier, &wrong_recipient, &verifier_domain);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #10)")]
+fn test_wrong_verifier_domain_rejected() {
+    let env = Env::default();
+    let (client, _token, _admin, holder, _oracle, _nullifier) = setup(&env);
+    let product_id = client.create_product(&10, &1000, &180);
+    let _dummy = client.buy_policy(&holder, &product_id, &3600);
+    let policy_id = client.buy_policy(&holder, &product_id, &3600);
+
+    let proof = Bytes::from_slice(&env, include_bytes!("../../../artifacts/proof_blob.bin"));
+    let raw_public_inputs = include_bytes!("../../../artifacts/public_inputs.bin");
+    let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
+    let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let wrong_domain = BytesN::from_array(&env, &[9; 32]);
+
+    client.publish_event(&policy_id, &oracle_commitment);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &wrong_domain);
+}
+
+#[test]
+#[should_panic(expected = "Error(Contract, #4)")]
+fn test_double_claim_rejected() {
+    let env = Env::default();
+    let (client, _token, _admin, holder, _oracle, _nullifier) = setup(&env);
+    let product_id = client.create_product(&10, &1000, &180);
+    let _dummy = client.buy_policy(&holder, &product_id, &3600);
+    let policy_id = client.buy_policy(&holder, &product_id, &3600);
+
+    let proof = Bytes::from_slice(&env, include_bytes!("../../../artifacts/proof_blob.bin"));
+    let raw_public_inputs = include_bytes!("../../../artifacts/public_inputs.bin");
+    let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
+    let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
+
+    client.publish_event(&policy_id, &oracle_commitment);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
 }
 
 #[test]
@@ -154,8 +281,10 @@ fn test_rotated_oracle_key_rejects_old_proof() {
     assert_eq!(client.get_oracle_key_x(), rotated_x);
     assert_eq!(client.get_oracle_key_y(), rotated_y);
 
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
     client.publish_event(&policy_id, &oracle_commitment);
-    client.claim(&policy_id, &proof, &nullifier);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
 }
 
 #[test]
@@ -186,8 +315,10 @@ fn test_claim_without_oracle_key_rejected() {
     let oracle_commitment = BytesN::from_array(&env, raw_public_inputs[0..32].try_into().unwrap());
     let nullifier = BytesN::from_array(&env, raw_public_inputs[96..128].try_into().unwrap());
 
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
     client.publish_event(&policy_id, &oracle_commitment);
-    client.claim(&policy_id, &proof, &nullifier);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
 }
 
 #[test]
@@ -199,7 +330,9 @@ fn test_claim_without_event() {
     let policy_id = client.buy_policy(&holder, &product_id, &3600);
     let proof = Bytes::from_array(&env, &[1, 2, 3]);
 
-    client.claim(&policy_id, &proof, &nullifier);
+    let payout_recipient = BytesN::from_array(&env, &[0; 32]);
+    let verifier_domain = BytesN::from_array(&env, &[0; 32]);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
 }
 
 #[test]
@@ -216,7 +349,9 @@ fn test_expired_policy_rejected() {
     
     client.publish_event(&policy_id, &oracle);
     let proof = Bytes::from_array(&env, &[1, 2, 3]);
-    client.claim(&policy_id, &proof, &nullifier);
+    let payout_recipient = BytesN::from_array(&env, &[0; 32]);
+    let verifier_domain = BytesN::from_array(&env, &[0; 32]);
+    client.claim(&policy_id, &proof, &nullifier, &payout_recipient, &verifier_domain);
 }
 
 #[test]
@@ -246,6 +381,9 @@ fn test_verify_public_input_packing() {
     let oracle_public_key_x = BytesN::from_array(&env, raw_public_inputs[128..160].try_into().unwrap());
     let oracle_public_key_y = BytesN::from_array(&env, raw_public_inputs[160..192].try_into().unwrap());
     
+    let payout_recipient = BytesN::from_array(&env, raw_public_inputs[192..224].try_into().unwrap());
+    let verifier_domain = BytesN::from_array(&env, raw_public_inputs[224..256].try_into().unwrap());
+    
     // Pack using the exact same function the contract uses
     let packed = InsurancePool::pack_public_inputs(
         &env,
@@ -255,6 +393,8 @@ fn test_verify_public_input_packing() {
         nullifier,
         oracle_public_key_x,
         oracle_public_key_y,
+        payout_recipient,
+        verifier_domain,
     );
     
     // Assert byte-for-byte equality with bb's output

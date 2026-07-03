@@ -1,0 +1,11 @@
+{
+  "status": "EDDSA_POSEIDON_READY",
+  "proofSystem": "UltraHonk",
+  "oracleHash": "keccak",
+  "proofPath": "circuits/claim/target/proof",
+  "verifyingKeyPath": "circuits/claim/target/vk",
+  "publicInputsPath": "circuits/claim/target/public_inputs",
+  "proofBlobSha256": "c49cf283475b3e19e8243b2cafdf0ed0efce65dbaf304a73fb5da1a38c8a58f2",
+  "verifyingKeyHash": "0fb132463729dae804da7f435930ab5146fdd5a5169b0fbe6656a7a7e6fd25e4",
+  "publicInputsSha256": "5a0e39789b0a6966049f7aad0d787d0c964534a807741bff13c7ad8157c58de6"
+}

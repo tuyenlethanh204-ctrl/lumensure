@@ -1,0 +1,14 @@
+Node version:
+v24.14.1
+Cargo version:
+cargo 1.96.1 (356927216 2026-06-26)
+Nargo version:
+nargo version = 1.0.0-beta.9
+noirc version = 1.0.0-beta.9+6abff2f16e1c1314ba30708d1cf032a536de3d19
+(git version hash: 6abff2f16e1c1314ba30708d1cf032a536de3d19, is dirty: false)
+Barretenberg version:
+0.87.0
+Stellar CLI version:
+stellar 27.0.0 (5a7c5fe76530bf4248477ac812fc757146b98cc4)
+stellar-xdr 27.0.0 (5262803470be965e42f80023d12fba12808c774a)
+xdr (68fa1ac55692f68ad2a2ca549d0a283273554439)

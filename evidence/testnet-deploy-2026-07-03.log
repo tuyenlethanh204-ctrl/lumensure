@@ -1,0 +1,93 @@
+contract_id=CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW
+admin=GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43
+token=CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC
+oracle_key_x=000000000000000000000000000000000000000000000000000000000000
+0001
+oracle_key_y=000000000000000000000000000000000000000000000000000000000000
+00b4
+commitment=1a5ba115182cb8e9f6dfa6cfe7c5fe99b02bd0134829731850006fb540f0
+feb2
+nullifier=01b0c7c47ce498044496c78ded485186f5bc7c5254a0a77e3abda249f559
+6758
+:: create_product
+ℹ️  Simulating transaction…
+ℹ️  Signing transaction: 7a52e7cb376e1ce0e08d654a9feff53ce8d24b16e91878c67088eec17116234f
+🌎 Sending transaction…
+✅ Transaction submitted successfully!
+🔗 https://stellar.expert/explorer/testnet/tx/7a52e7cb376e1ce0e08d654a9feff53ce8d24b16e91878c67088eec17116234f
+0
+:: buy_policy_0
+ℹ️  Simulating transaction…
+ℹ️  Signing transaction: b4d80378f8167aa5208cc6343f10255cbe599a476e40dd55a0a45dc64df10137
+🌎 Sending transaction…
+✅ Transaction submitted successfully!
+🔗 https://stellar.expert/explorer/testnet/tx/b4d80378f8167aa5208cc6343f10255cbe599a476e40dd55a0a45dc64df10137
+📅 CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC - Success - Event: [{"symbol":"transfer"},{"address":"GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43"},{"address":"CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW"},{"string":"native"}] = {"i128":"10"}
+0
+:: buy_policy_1
+ℹ️  Simulating transaction…
+ℹ️  Signing transaction: e0fc2c1b362977877b2917e42186e9c67df2dd2e2ebce104e5bed1c0a507431f
+🌎 Sending transaction…
+✅ Transaction submitted successfully!
+🔗 https://stellar.expert/explorer/testnet/tx/e0fc2c1b362977877b2917e42186e9c67df2dd2e2ebce104e5bed1c0a507431f
+📅 CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC - Success - Event: [{"symbol":"transfer"},{"address":"GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43"},{"address":"CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW"},{"string":"native"}] = {"i128":"10"}
+1
+:: publish_event
+❌ error: Failed to parse argument 'oracle_commitment': value is not parseable to Some(
+    BytesN(
+        ScSpecTypeBytesN {
+            n: 32,
+        },
+    ),
+)
+
+Context: Expected type bytes32 (exactly 32 bytes), but received: '1a5ba115182cb8e9f6dfa6cfe7c5fe99b02bd0134829731850006fb540f0
+feb2'
+
+Suggestion: Check the contract specification for the correct argument format and type
+contract_id=CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW
+admin=GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43
+token=CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC
+oracle_key_x=0000000000000000000000000000000000000000000000000000000000000001
+oracle_key_y=00000000000000000000000000000000000000000000000000000000000000b4
+commitment=1a5ba115182cb8e9f6dfa6cfe7c5fe99b02bd0134829731850006fb540f0feb2
+nullifier=01b0c7c47ce498044496c78ded485186f5bc7c5254a0a77e3abda249f5596758
+:: publish_event
+ℹ️  Simulating transaction…
+ℹ️  Signing transaction: 10a3e0284fd7f4c5867265bd322de70e68ec2a3d2ad3988e6a45128097cd4ca6
+🌎 Sending transaction…
+✅ Transaction submitted successfully!
+🔗 https://stellar.expert/explorer/testnet/tx/10a3e0284fd7f4c5867265bd322de70e68ec2a3d2ad3988e6a45128097cd4ca6
+null
+:: reserve_transfer
+ℹ️  Simulating transaction…
+ℹ️  Signing transaction: ac667d4e40398846726d56e43bd417e6131ec825beef518e0ad0e4d2f8fdace0
+🌎 Sending transaction…
+✅ Transaction submitted successfully!
+🔗 https://stellar.expert/explorer/testnet/tx/ac667d4e40398846726d56e43bd417e6131ec825beef518e0ad0e4d2f8fdace0
+📅 CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC - Success - Event: TransferWithAmountOnly (transfer), from: "GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43", to: "CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW", amount: "1000"
+
+:: claim
+❌ error: Missing required argument 'payout_recipient' of type bytes32 (exactly 32 bytes)
+
+Suggestions:
+- Add the argument: --payout_recipient <value>
+- Or use a file: --payout_recipient-file-path <path-to-json-file>
+- Check the contract specification for required arguments
+ℹ️  Simulating transaction…
+ℹ️  Signing transaction: 0c9aafdff6461833c099ed93a28d5bc9d92b8ff1835fcd4d05abdc7f8bc5b5b6
+🌎 Sending transaction…
+✅ Transaction submitted successfully!
+🔗 https://stellar.expert/explorer/testnet/tx/0c9aafdff6461833c099ed93a28d5bc9d92b8ff1835fcd4d05abdc7f8bc5b5b6
+📅 CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC - Success - Event: [{"symbol":"transfer"},{"address":"CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW"},{"address":"GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43"},{"string":"native"}] = {"i128":"1000"}
+null
+:: get_product
+{"active":true,"payout":"1000","premium":"10","threshold":180}
+:: get_policy
+{"active":false,"expiry":1783017427,"holder":"GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43","paid":true,"product_id":0}
+:: get_event
+"1a5ba115182cb8e9f6dfa6cfe7c5fe99b02bd0134829731850006fb540f0feb2"
+:: nullifier_used
+true
+:: contract_balance
+"20"

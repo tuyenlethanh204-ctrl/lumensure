@@ -1,0 +1,78 @@
+{
+  "feature": "LumenSure++ Private Payout Rail",
+  "proofStatement": "The claimant knows oracle-signed event data bound to the policy; the hidden event satisfies the public threshold; the nullifier is derived from the same event and has not been consumed.",
+  "fieldEncoding": "Each public input is encoded as a 32-byte big-endian BN254 field element and concatenated in the listed order before Soroban verifier submission.",
+  "domainSeparator": {
+    "name": "verifier_domain",
+    "fixtureValue": "987654321",
+    "purpose": "Binds the proof to the LumenSure claim-verifier domain used by the contract and judge evidence fixture."
+  },
+  "publicInputs": [
+    {
+      "index": 0,
+      "name": "event_commitment",
+      "source": "contract Event(policy_id)",
+      "constraint": "Poseidon(policy_id, private event value, private timestamp, private nonce)"
+    },
+    {
+      "index": 1,
+      "name": "policy_id",
+      "source": "contract claim argument",
+      "constraint": "Bound into event commitment and nullifier derivations"
+    },
+    {
+      "index": 2,
+      "name": "product_threshold",
+      "source": "contract Product(policy.product_id).threshold",
+      "constraint": "private event value >= product_threshold"
+    },
+    {
+      "index": 3,
+      "name": "nullifier",
+      "source": "contract claim argument",
+      "constraint": "Poseidon(policy_id, private timestamp, private nonce); also checked against consumed nullifier storage"
+    },
+    {
+      "index": 4,
+      "name": "oracle_public_key_x",
+      "source": "contract oracle key registry",
+      "constraint": "BabyJubJub EdDSA public key X for signature verification"
+    },
+    {
+      "index": 5,
+      "name": "oracle_public_key_y",
+      "source": "contract oracle key registry",
+      "constraint": "BabyJubJub EdDSA public key Y for signature verification"
+    },
+    {
+      "index": 6,
+      "name": "payout_recipient",
+      "source": "contract claim argument",
+      "constraint": "Bound by the circuit fixture to the judge payout recipient field"
+    },
+    {
+      "index": 7,
+      "name": "verifier_domain",
+      "source": "contract claim argument",
+      "constraint": "Bound by the circuit fixture to the LumenSure verifier domain"
+    },
+    {
+      "indexRange": "8..17",
+      "name": "marker_fields",
+      "source": "contract pack_public_inputs",
+      "constraint": "Fixed marker values 8 through 17 prevent field-order drift"
+    }
+  ],
+  "mutationCoverage": [
+    "wrong policy id",
+    "wrong product threshold",
+    "wrong event commitment",
+    "wrong nullifier",
+    "wrong payout recipient",
+    "wrong verifier domain",
+    "mutated proof",
+    "double claim replay",
+    "expired policy",
+    "stale oracle key"
+  ]
+}

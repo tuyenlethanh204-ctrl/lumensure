@@ -146,6 +146,8 @@ impl InsurancePool {
         policy_id: u64,
         proof_blob: Bytes,
         nullifier: BytesN<32>,
+        payout_recipient: BytesN<32>,
+        verifier_domain: BytesN<32>,
     ) -> Result<(), Error> {
         let mut policy: Policy = env
             .storage()
@@ -193,6 +195,8 @@ impl InsurancePool {
             nullifier.clone(),
             oracle_public_key_x,
             oracle_public_key_y,
+            payout_recipient,
+            verifier_domain,
         );
         Self::verify_ultrahonk(&env, &public_inputs, &proof_blob)?;
 
@@ -254,6 +258,8 @@ impl InsurancePool {
         nullifier: BytesN<32>,
         oracle_public_key_x: BytesN<32>,
         oracle_public_key_y: BytesN<32>,
+        payout_recipient: BytesN<32>,
+        verifier_domain: BytesN<32>,
     ) -> Bytes {
         let mut out = Bytes::new(env);
         out.append(&Bytes::from_array(env, &oracle_commitment.to_array()));
@@ -262,7 +268,13 @@ impl InsurancePool {
         out.append(&Bytes::from_array(env, &nullifier.to_array()));
         out.append(&Bytes::from_array(env, &oracle_public_key_x.to_array()));
         out.append(&Bytes::from_array(env, &oracle_public_key_y.to_array()));
-        for value in 6..18 {
+
+        out.append(&Bytes::from_array(env, &payout_recipient.to_array()));
+
+        // verifier_domain
+        out.append(&Bytes::from_array(env, &verifier_domain.to_array()));
+
+        for value in 8..18 {
             out.append(&Self::field_bytes_from_u64(env, value));
         }
         out

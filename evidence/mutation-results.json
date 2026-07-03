@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-07-03",
+  "commands": [
+    "npm run nargo:test",
+    "cargo test --manifest-path contracts/insurance/Cargo.toml",
+    "npm test"
+  ],
+  "results": {
+    "noir": { "passed": 7, "failed": 0 },
+    "soroban": { "passed": 15, "failed": 0 },
+    "node": { "passed": 3, "failed": 0 },
+    "vitest": { "passed": 4, "failed": 0 }
+  },
+  "coveredRejections": [
+    "below threshold",
+    "wrong policy id",
+    "wrong event commitment",
+    "wrong nullifier",
+    "wrong oracle signature",
+    "wrong payout recipient",
+    "wrong verifier domain",
+    "mutated proof",
+    "double claim replay",
+    "expired policy",
+    "missing oracle key",
+    "stale oracle key"
+  ]
+}

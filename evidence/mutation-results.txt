@@ -1,0 +1,14 @@
+﻿
+running 9 tests
+test test::test_verify_public_input_packing ... ok
+test test::test_create_buy_fund ... ok
+test test::test_expired_policy_rejected - should panic ... ok
+test test::test_claim_without_event - should panic ... ok
+test test::test_claim_without_oracle_key_rejected - should panic ... ok
+test test::test_mutated_proof_rejected - should panic ... ok
+test test::test_mutated_public_inputs_rejected - should panic ... ok
+test test::test_rotated_oracle_key_rejects_old_proof - should panic ... ok
+test test::test_claim_success_payout ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+

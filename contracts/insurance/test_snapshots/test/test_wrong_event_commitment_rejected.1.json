@@ -244,7 +244,7 @@
                   "u64": "1"
                 },
                 {
-                  "bytes": "1a5ba115182cb8e9f6dfa6cfe7c5fe99b02bd0134829731850006fb540f0feb2"
+                  "bytes": "0909090909090909090909090909090909090909090909090909090909090909"
                 }
               ]
             }
@@ -253,7 +253,6 @@
         }
       ]
     ],
-    [],
     []
   ],
   "ledger": {
@@ -486,34 +485,7 @@
               },
               "durability": "persistent",
               "val": {
-                "bytes": "1a5ba115182cb8e9f6dfa6cfe7c5fe99b02bd0134829731850006fb540f0feb2"
-              }
-            }
-          },
-          "ext": "v0"
-        },
-        "live_until": 4095
-      },
-      {
-        "entry": {
-          "last_modified_ledger_seq": 0,
-          "data": {
-            "contract_data": {
-              "ext": "v0",
-              "contract": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4",
-              "key": {
-                "vec": [
-                  {
-                    "symbol": "Nullifier"
-                  },
-                  {
-                    "bytes": "01b0c7c47ce498044496c78ded485186f5bc7c5254a0a77e3abda249f5596758"
-                  }
-                ]
-              },
-              "durability": "persistent",
-              "val": {
-                "bool": true
+                "bytes": "0909090909090909090909090909090909090909090909090909090909090909"
               }
             }
           },
@@ -614,7 +586,7 @@
                       "symbol": "active"
                     },
                     "val": {
-                      "bool": false
+                      "bool": true
                     }
                   },
                   {
@@ -638,7 +610,7 @@
                       "symbol": "paid"
                     },
                     "val": {
-                      "bool": true
+                      "bool": false
                     }
                   },
                   {
@@ -838,7 +810,7 @@
                       "symbol": "amount"
                     },
                     "val": {
-                      "i128": "100980"
+                      "i128": "99980"
                     }
                   },
                   {
@@ -890,7 +862,7 @@
                       "symbol": "amount"
                     },
                     "val": {
-                      "i128": "99020"
+                      "i128": "100020"
                     }
                   },
                   {

@@ -1,0 +1,59 @@
+{
+  "project": "LumenSure++ Private Payout Rail",
+  "network": "testnet",
+  "networkPassphrase": "Test SDF Network ; September 2015",
+  "deployedAt": "2026-07-03",
+  "contractId": "CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW",
+  "nativeTokenContract": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+  "deployerIdentity": "deployer",
+  "deployerPublicKey": "GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43",
+  "wasmHash": "1002df92bb57042947bee3e1e66eabbeb9b7275edc4729786878a665e217f306",
+  "transactionHashes": [
+    "3a69561b6c1c9dde9d1096b86d3bbf89a8b288680a9a3804195ebe8aebee8244",
+    "37f00e437ef58a60d627db40f64631c3907f251828d78dc11dee02fb5d002ee0",
+    "a1cda63341b1d4430de9981f88cf57fb56f4ed728af8c3e724e64b367ebdb8a3",
+    "21eb35e7d10e551fde9fc9d6a9af9d437b586192846dd525b4f151a9b32c28e2",
+    "7a52e7cb376e1ce0e08d654a9feff53ce8d24b16e91878c67088eec17116234f",
+    "b4d80378f8167aa5208cc6343f10255cbe599a476e40dd55a0a45dc64df10137",
+    "e0fc2c1b362977877b2917e42186e9c67df2dd2e2ebce104e5bed1c0a507431f",
+    "10a3e0284fd7f4c5867265bd322de70e68ec2a3d2ad3988e6a45128097cd4ca6",
+    "ac667d4e40398846726d56e43bd417e6131ec825beef518e0ad0e4d2f8fdace0",
+    "0c9aafdff6461833c099ed93a28d5bc9d92b8ff1835fcd4d05abdc7f8bc5b5b6"
+  ],
+  "proofBlobSha256": "c49cf283475b3e19e8243b2cafdf0ed0efce65dbaf304a73fb5da1a38c8a58f2",
+  "verifyingKeyHash": "0fb132463729dae804da7f435930ab5146fdd5a5169b0fbe6656a7a7e6fd25e4",
+  "publicInputsSha256": "5a0e39789b0a6966049f7aad0d787d0c964534a807741bff13c7ad8157c58de6",
+  "publicInputManifest": "evidence/public-input-manifest.json",
+  "oracleCommitment": "1a5ba115182cb8e9f6dfa6cfe7c5fe99b02bd0134829731850006fb540f0feb2",
+  "nullifier": "01b0c7c47ce498044496c78ded485186f5bc7c5254a0a77e3abda249f5596758",
+  "payoutRecipient": "00000000000000000000000000000000000000000000000000000000075bcd15",
+  "verifierDomain": "000000000000000000000000000000000000000000000000000000003ade68b1",
+  "acceptedFlow": "Policy 1 was paid on Stellar testnet and the nullifier was recorded as used.",
+  "rejectedFlows": [
+    "Local contract tests reject replay/double claim",
+    "Local contract tests reject stale oracle key",
+    "Local contract tests reject mutated public inputs",
+    "Local circuit tests reject wrong payout recipient and wrong verifier domain"
+  ],
+  "finalState": {
+    "productId": 0,
+    "policyId": 1,
+    "policyPaid": true,
+    "policyActive": false,
+    "nullifierUsed": true,
+    "insuranceBalance": "20",
+    "payoutAmount": "1000"
+  },
+  "publicDashboard": {
+    "url": "https://lumensure.vercel.app",
+    "backingDeploymentUrl": "https://dist-3ym8kdewa-maixuancanh1111-9074s-projects.vercel.app",
+    "deploymentId": "dpl_76FH2os8D7wybx7ruGPdVLGfe1in",
+    "status": "READY",
+    "verified": true
+  },
+  "privacyBoundary": "Private witness values are omitted from evidence; public testnet evidence includes contract id, transaction hashes, public commitments, nullifier, payout recipient field, verifier domain, and final state.",
+  "trustedActors": ["policy administrator", "oracle key administrator"],
+  "mockedComponents": ["deterministic local oracle fixture"],
+  "sourceDocument": "TESTNET_DEPLOYMENT.md",
+  "rawLog": "evidence/testnet-deploy-2026-07-03.log"
+}

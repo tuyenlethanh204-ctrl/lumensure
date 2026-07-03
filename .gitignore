@@ -16,10 +16,10 @@ demo-video/
 *.wav
 *.mp3
 
-# Agent / AI workflow handoff files
-AGENT_REPORT.md
-CODEX_REVIEW.md
-FIX_PROMPT.md
+# Local handoff and review notes
+*_REPORT.md
+*_REVIEW.md
+*_PROMPT.md
 
 # Local logs and bulky archives
 out.txt

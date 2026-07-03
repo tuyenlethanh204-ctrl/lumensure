@@ -3,11 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test oracle/*.test.mjs scripts/*.test.mjs",
+    "test": "node --test oracle/*.test.mjs scripts/*.test.mjs && node node_modules/vitest/vitest.mjs run tests/mutation",
     "proof:fixture": "node scripts/claim_fixture.mjs",
+    "nargo:check": "wsl.exe -d Ubuntu -- bash -lc \"~/.nargo/bin/nargo --version | grep -q '1.0.0-beta.9' || ~/.nargo/bin/noirup -v 1.0.0-beta.9; cd /mnt/d/dorahack/stellar/zkinsure && ~/.nargo/bin/nargo check --program-dir circuits/claim\"",
+    "nargo:test": "wsl.exe -d Ubuntu -- bash -lc \"~/.nargo/bin/nargo --version | grep -q '1.0.0-beta.9' || ~/.nargo/bin/noirup -v 1.0.0-beta.9; cd /mnt/d/dorahack/stellar/zkinsure && ~/.nargo/bin/nargo test --program-dir circuits/claim\"",
     "web:build": "node web/build.mjs"
   },
   "devDependencies": {
-    "circomlibjs": "^0.1.7"
+    "circomlibjs": "^0.1.7",
+    "vitest": "^1.6.0"
   }
 }

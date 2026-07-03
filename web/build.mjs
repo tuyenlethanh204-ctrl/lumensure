@@ -4,26 +4,26 @@ import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
 const CONFIG = {
   network: "testnet",
   networkLabel: "Stellar testnet",
-  sourceAccount: "alice",
+  sourceAccount: "deployer",
   publicDomain: "https://lumensure.vercel.app",
-  deployerPublicKey: "GARSBZTUP3DS4N3HWVXS47AK2RS5T2MKBC3CISFKQD4D26DVLZUD7MZ7",
-  insuranceContract: "CBQ3WXWBRGDRUNYFMPYCFKSCL4KZOTAA3HDQHU7XVGEFWHXIHEQ3NQ53",
+  deployerPublicKey: "GB4W3UIOBSERQ45D5KU2L56WN4CZJBOKR7KXUH4QFCW2TACCZJOOBH43",
+  insuranceContract: "CBMRHKVESDGT54LRSHVFQ2F7OS6O4VKZ2665RAT4BGVNKS3BHZK6TIYW",
   nativeTokenContract: "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
   policyId: 1,
   productId: 0,
   nullifier: "01b0c7c47ce498044496c78ded485186f5bc7c5254a0a77e3abda249f5596758",
-  wasmHash: "ab620c01803bb5535a5f56ecad2a3a48cbefcf1e5fc55820cca10e8e43f357d3",
+  wasmHash: "1002df92bb57042947bee3e1e66eabbeb9b7275edc4729786878a665e217f306",
   tx: {
-    upload: "2565bf8c2af3e4efa557db2cc94400849cea2f8a49e7d3d1e35c9367e1ae3075",
-    deploy: "798dfd3bb6542a7643eee56e6ac4f5fdc98785ec947c1f717d9e43d0e8719858",
-    init: "1edebfa04fc9120f8902cfabe13e5410fe2ae00684c44bdd44d3d91dd1919ae7",
-    setOracleKey: "abfd0c1f4ebdb36d7bd9eb002940067b061514ba99c4de98f1d925bc1efece7d",
-    createProduct: "1a8661bde13a5a5a6499340f8743f7e05ce88aeddb5121c6639aa0ec1ee9d7f6",
-    buyPolicy0: "7f762170fb4642d66b429fc8b7133661651b275f02ac3d4d326b877ba4416602",
-    buyPolicy1: "a4f033a839753ea3f80583af75993876cc997a862b25e207cae53b06b5699fd5",
-    publishEvent: "90fcb763af8d1108c37b3272f9fd89d9b73781119ffc71f0a36865dfe2d614c8",
-    reserveTransfer: "d46c6f5e6ab976405da65af21fd7d7ea53d53a5d93bcb830ca8fbd7442d83f92",
-    claim: "fec4fae1ee7c4a1c2a41db4dcf91614e521ef0b2c4a806bc154b811ccfd66ffa",
+    upload: "3a69561b6c1c9dde9d1096b86d3bbf89a8b288680a9a3804195ebe8aebee8244",
+    deploy: "37f00e437ef58a60d627db40f64631c3907f251828d78dc11dee02fb5d002ee0",
+    init: "a1cda63341b1d4430de9981f88cf57fb56f4ed728af8c3e724e64b367ebdb8a3",
+    setOracleKey: "21eb35e7d10e551fde9fc9d6a9af9d437b586192846dd525b4f151a9b32c28e2",
+    createProduct: "7a52e7cb376e1ce0e08d654a9feff53ce8d24b16e91878c67088eec17116234f",
+    buyPolicy0: "b4d80378f8167aa5208cc6343f10255cbe599a476e40dd55a0a45dc64df10137",
+    buyPolicy1: "e0fc2c1b362977877b2917e42186e9c67df2dd2e2ebce104e5bed1c0a507431f",
+    publishEvent: "10a3e0284fd7f4c5867265bd322de70e68ec2a3d2ad3988e6a45128097cd4ca6",
+    reserveTransfer: "ac667d4e40398846726d56e43bd417e6131ec825beef518e0ad0e4d2f8fdace0",
+    claim: "0c9aafdff6461833c099ed93a28d5bc9d92b8ff1835fcd4d05abdc7f8bc5b5b6",
   },
 };
 
@@ -71,7 +71,7 @@ function escapeHtml(value) {
 function short(value, head = 8, tail = 6) {
   const s = String(value ?? "");
   if (s.length <= head + tail + 1) return s;
-  return `${s.slice(0, head)}…${s.slice(-tail)}`;
+  return `${s.slice(0, head)}...${s.slice(-tail)}`;
 }
 
 function explorerTx(hash) {
@@ -95,7 +95,7 @@ function txRow(action, hash) {
     <a class="tx-row" href="${explorerTx(hash)}" target="_blank" rel="noreferrer">
       <span>${escapeHtml(action)}</span>
       <strong>${short(hash, 10, 8)}</strong>
-      <em>↗</em>
+      <em>-></em>
     </a>`;
 }
 
@@ -237,7 +237,12 @@ writeFileSync(
       .main{width:100%;max-width:100vw;padding:0 16px 48px}.hero,.grid{grid-template-columns:1fr}.hero,.grid,.metrics{width:100%;max-width:100%}.metrics{grid-template-columns:repeat(2,1fr)}
     }
     @media(max-width:640px){
-      .main{padding:0 12px 42px}.nav,.socials,.metrics{grid-template-columns:1fr}.brand img{width:188px}.top-card,.hero-main,.status-panel,.card,.metric{max-width:calc(100vw - 24px)}.top-card{display:grid;gap:14px;overflow:hidden}.breadcrumb{flex-wrap:wrap}.wallet span{flex:0 0 34px}.hero-main{width:100%;overflow:hidden;padding:24px}h1{width:100%;max-width:100%;font-size:32px;letter-spacing:-.035em;white-space:normal;overflow-wrap:anywhere;word-break:break-word}.hero-main p{width:100%;max-width:100%;font-size:17px;overflow-wrap:anywhere;word-break:break-word}.actions{display:grid}.btn{width:100%;white-space:normal;text-align:center}.detail,.tx-row{grid-template-columns:1fr}.status-head{display:grid}footer{display:grid}
+      .sidebar{margin:12px;padding:18px 14px;max-width:calc(100vw - 24px)}
+      .brand{margin-bottom:16px}.brand img{width:172px}
+      .nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 10px;padding:0 4px}.nav a{gap:9px;font-size:16px}.nav svg{width:18px;height:18px}
+      .wallet{height:38px;margin-top:16px}.wallet span{flex:0 0 32px;width:32px;height:32px}
+      .socials{grid-template-columns:1fr;gap:12px;margin-top:14px;padding-top:14px}
+      .main{padding:0 12px 42px}.metrics{grid-template-columns:1fr}.top-card,.hero-main,.status-panel,.card,.metric{max-width:calc(100vw - 24px)}.top-card{display:grid;gap:12px;overflow:hidden;min-height:0;padding:18px}.breadcrumb{flex-wrap:wrap}.hero-main{width:100%;overflow:hidden;padding:24px;min-height:0}h1{width:100%;max-width:100%;font-size:32px;letter-spacing:-.035em;white-space:normal;overflow-wrap:anywhere;word-break:break-word}.hero-main p{width:100%;max-width:100%;font-size:17px;overflow-wrap:anywhere;word-break:break-word}.actions{display:grid}.btn{width:100%;white-space:normal;text-align:center}.detail,.tx-row{grid-template-columns:1fr}.status-head{display:grid}footer{display:grid}
     }
   </style>
 </head>
@@ -256,17 +261,17 @@ writeFileSync(
         <a href="#reserve">${navIcon("reserve")}<span>Reserve</span></a>
         <a href="#evidence">${navIcon("evidence")}<span>Evidence</span></a>
       </nav>
-      <a class="wallet" href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">View contract <span>◕</span></a>
+      <a class="wallet" href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">View contract <span>-></span></a>
       <div class="socials">
-        <a href="./onchain-snapshot.json">On-chain snapshot<em>↗</em></a>
-        <a href="${explorerTx(CONFIG.tx.claim)}">Claim transaction<em>↗</em></a>
-        <a href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">Contract explorer<em>↗</em></a>
+        <a href="./onchain-snapshot.json">On-chain snapshot<em>-></em></a>
+        <a href="${explorerTx(CONFIG.tx.claim)}">Claim transaction<em>-></em></a>
+        <a href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">Contract explorer<em>-></em></a>
       </div>
     </aside>
 
     <main class="main" id="overview">
       <section class="top-card">
-        <div class="breadcrumb"><span>LumenSure</span><strong>Verifiable insurance</strong><span>·</span><span>${escapeHtml(CONFIG.networkLabel)}</span></div>
+        <div class="breadcrumb"><span>LumenSure</span><strong>Verifiable insurance</strong><span>|</span><span>${escapeHtml(CONFIG.networkLabel)}</span></div>
         <div class="pill"><i class="dot"></i>${escapeHtml(status)}</div>
       </section>
 
@@ -276,7 +281,7 @@ writeFileSync(
           <h1>Proof-backed payout,<br />live on Stellar.</h1>
           <p>Policy #${CONFIG.policyId} was verified with the active oracle key, nullifier replay protection, and a public payout transaction.</p>
           <div class="actions">
-            <a class="btn" href="${explorerTx(CONFIG.tx.claim)}" target="_blank" rel="noreferrer">View claim transaction ↗</a>
+            <a class="btn" href="${explorerTx(CONFIG.tx.claim)}" target="_blank" rel="noreferrer">View claim transaction -></a>
             <a class="btn secondary" href="./onchain-snapshot.json">Open snapshot</a>
           </div>
         </article>
@@ -304,7 +309,7 @@ writeFileSync(
 
       <section class="grid" id="policy">
         <article class="card">
-          <div class="card-head"><h3>Policy state</h3><a href="${explorerTx(CONFIG.tx.claim)}" target="_blank" rel="noreferrer">Explorer ↗</a></div>
+          <div class="card-head"><h3>Policy state</h3><a href="${explorerTx(CONFIG.tx.claim)}" target="_blank" rel="noreferrer">Explorer -></a></div>
           ${detail("Product id", CONFIG.productId)}
           ${detail("Policy id", CONFIG.policyId)}
           ${detail("Holder", onchain.policy?.holder, true)}
@@ -316,7 +321,7 @@ writeFileSync(
         </article>
 
         <article class="card" id="oracle">
-          <div class="card-head"><h3>Oracle route</h3><a href="${explorerTx(CONFIG.tx.setOracleKey)}" target="_blank" rel="noreferrer">Registry ↗</a></div>
+          <div class="card-head"><h3>Oracle route</h3><a href="${explorerTx(CONFIG.tx.setOracleKey)}" target="_blank" rel="noreferrer">Registry -></a></div>
           ${detail("Oracle key X", onchain.oracleKeyX, true)}
           ${detail("Oracle key Y", onchain.oracleKeyY, true)}
           ${detail("Commitment", onchain.eventCommitment, true)}
@@ -324,7 +329,7 @@ writeFileSync(
         </article>
 
         <article class="card" id="proof">
-          <div class="card-head"><h3>Verifier binding</h3><a href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">Contract ↗</a></div>
+          <div class="card-head"><h3>Verifier binding</h3><a href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">Contract -></a></div>
           ${detail("Contract", CONFIG.insuranceContract, true)}
           ${detail("WASM hash", CONFIG.wasmHash, true)}
           ${detail("Proof source", "artifacts/proof_blob.bin submitted on-chain")}
@@ -333,7 +338,7 @@ writeFileSync(
         </article>
 
         <article class="card" id="reserve">
-          <div class="card-head"><h3>Reserve</h3><a href="${explorerTx(CONFIG.tx.reserveTransfer)}" target="_blank" rel="noreferrer">Transfer ↗</a></div>
+          <div class="card-head"><h3>Reserve</h3><a href="${explorerTx(CONFIG.tx.reserveTransfer)}" target="_blank" rel="noreferrer">Transfer -></a></div>
           ${detail("Token contract", CONFIG.nativeTokenContract, true)}
           ${detail("Insurance balance", onchain.insuranceBalance)}
           ${detail("Deployer balance", onchain.deployerBalance)}
@@ -342,7 +347,7 @@ writeFileSync(
         </article>
 
         <article class="card wide" id="evidence">
-          <div class="card-head"><h3>Explorer evidence</h3><a href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">Open contract ↗</a></div>
+          <div class="card-head"><h3>Explorer evidence</h3><a href="https://stellar.expert/explorer/testnet/contract/${CONFIG.insuranceContract}" target="_blank" rel="noreferrer">Open contract -></a></div>
           <div class="tx-list">
             ${txRow("Upload WASM", CONFIG.tx.upload)}
             ${txRow("Deploy contract", CONFIG.tx.deploy)}
@@ -358,7 +363,7 @@ writeFileSync(
       </section>
 
       <footer>
-        <span>LumenSure · Private claims, proven payouts on Stellar.</span>
+        <span>LumenSure | Private claims, proven payouts on Stellar.</span>
         <a href="./onchain-snapshot.json">onchain-snapshot.json</a>
       </footer>
     </main>
